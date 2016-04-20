@@ -1,0 +1,29 @@
+<div class="panel panel-info bounceIn animated">
+    <div class="panel-heading">
+        <h4 id="a">Inserte Su Asignatura</h4>
+    </div>
+    <div class="panel-body">
+        <form name="f" class="form-inline" novalidate>
+            <div class="form-group">
+                <label>Descripción Pregunta</label>
+                <input type="text" class="form-control" ng-model="f.strPregunta" required>
+            </div>
+
+            <div class="form-group">
+                <label>Prueba</label>
+                <select ng-model="f.numPrueba"  class="form-control" required>
+                    <option value="">Seleccion prueba</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Estado</label>
+                <input type="checkbox" class="form-control" ng-model="f.bolEstado">
+            </div>
+            <div class="form-group">
+                <button type="submit" ng-disabled="f.$invalid">Enviar</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+

@@ -1,0 +1,60 @@
+{{selectAsignatura}}
+
+
+<div class="panel panel-info bounceIn animated">
+    <div class="panel-heading">
+        <h4 id="a">Materias Ingresadas</h4>
+    </div>
+    <div class="panel-body">
+
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Nota</th>
+                <ht>Estado</ht>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in asignatura">
+                <th ng-show="edit[$index]===$index">
+                    {{item.ID}}
+                </th>
+                <td ng-show="edit[$index]===$index">
+                    <input type="text" class="form-control" ng-model="item.ASIG_NOMBRE"/>
+                </td>
+                <td ng-show="edit[$index]===$index">
+                    <select ng-model="item.ASIG_TIPO" class="form-control"   ng-init="item.ASIG_TIPO = tipoAprendizaje[item.ASIG_TIPO-1].id"  ng-options="obj.id as obj.descripcion for obj in tipoAprendizaje" required>
+                        <option value="">Seleccion Asignatura</option>
+                    </select>
+                </td>
+                <td ng-show="edit[$index]===$index">
+                    <select ng-model="item.ASIG_ESTADO" class="form-control"   ng-init="item.ASIG_ESTADO = (item.ASIG_ESTADO==='true'?'true':'false')"  required>
+                        <option value='true'>Activado</option>
+                        <option value='false'>Desactivado</option>
+                    </select>
+                </td>
+                <td ng-show="edit[$index]===$index">
+                    {{item.ASIG_NOTA}}
+                </td>
+                <th scope="row" ng-show="edit[$index]!=$index">{{item.ID}}</th>
+                <td ng-show="edit[$index]!=$index">{{item.ASIG_NOMBRE}}</td>
+                <td ng-show="edit[$index]!=$index">{{tipoAsignatura(item.ASIG_TIPO)}}</td>
+                <td ng-show="edit[$index]!=$index">{{item.ASIG_ESTADO==='true'?'Activado':'Inactivo'}}</td>
+                <td ng-show="edit[$index]!=$index">{{item.ASIG_NOTA}}</td>
+                <td>
+                    <button type="button" class="btn btn-success btn-xs" ng-click="edit[$index]=$index" ng-show="edit[$index]!=$index">Editar</button>
+                    <button type="button" class="btn btn-success btn-xs" ng-show="edit[$index]===$index" ng-click="actualizarAsignatura(item,$index)">Guardar</button>
+                    <button type="button" class="btn btn-success btn-xs" ng-click="edit[$index]=-1" ng-show="edit[$index]===$index">Cancelar</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+

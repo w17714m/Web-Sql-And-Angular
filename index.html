@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example - example-example8-production</title>
+
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/animate.css"/>
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css"/>
+    <link rel='stylesheet' href='bower_components/angular-loading-bar/build/loading-bar.min.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='bower_components/angular-chart.js/dist/angular-chart.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='bower_components/' type='text/css' media='all' />
+
+
+
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/Chart.js/Chart.js"></script>
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="lib/webSql/webSql.js"></script>
+    <script src="node_modules/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+
+
+    <script src="http://cwilso.github.io/AudioContext-MonkeyPatch/AudioContextMonkeyPatch.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/controller/mainCtrl.js"></script>
+    <script src="js/controller/asignarCtrl.js"></script>
+    <script src="js/controller/questionCtrl.js"></script>
+    <script src="js/controller/testCtrl.js"></script>
+    <script src="js/factory/dbControl.js"></script>
+    <script src="js/factory/consultaFactory.js"></script>
+
+
+    <script src="lib/jquery.lettering.js"></script>
+    <script src="lib/jquery.fittext.js"></script>
+    <script src="lib/jquery.textillade.js"></script>
+    <script src="lib/backStretch/backStretch.js"></script>
+
+</head>
+<body ng-app="APP" id="loading-bar-container">
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <span id="b">Aprendizaje v1</span>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Asignaturas<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/asigAdd">Agregar</a></li>
+                        <li><a href="#/asigView" >Visualizar</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pruebas<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/testAdd">Agregar</a></li>
+                        <li><a href="#/testView">Visualizar</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Preguntas<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/questionAdd">Agregar</a></li>
+                        <li><a href="#/questionView">Visualizar</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Repaso<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/">Asignaturas</a></li>
+                        <li><a href="#/">Idiomas</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div ng-view></div>
+        </div>
+    </div>
+</div>
+
+
+
+    <script type="text/javascript">
+    $.backstretch(["img/demo-2-bg.jpg","img/wood_texture2.jpg",'img/Leaf-1920x1200.jpg'], {speed: 2000});
+
+
+
+
+
+    </script>
+
+
+
+</body>
+</html>
