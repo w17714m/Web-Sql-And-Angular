@@ -117,9 +117,6 @@ myApp.config(function ($httpProvider,$routeProvider, $locationProvider,cfpLoadin
         .otherwise({
         redirectTo: '/'
     });
-
-    // configure html5 to get links working on jsfiddle
-   // $locationProvider.html5Mode(true);
 });
 
 
