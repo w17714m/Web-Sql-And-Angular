@@ -8,37 +8,42 @@
             <tr>
                 <th>#</th>
                 <th>Nombre Prueba</th>
+                <th>Asignatura</th>
                 <th>Bien</th>
                 <th>Mal</th>
-                <th>Total</th>
                 <th>Estado</th>
+                <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
+            <tr ng-repeat="i in pruebas">
+                <th scope="row" ng-show="edit[$index]===$index">{{i.ID}}</th>
+                <td ng-show="edit[$index]===$index">
+                    <input type="text" class="form-control" ng-model="i.PRU_DESCRIPCION" required>
+                </td>
+                <td ng-show="edit[$index]===$index">
+                    <select select ng-model="i.PRU_ASIGNATURA" class="form-control"   ng-options="obj.id as obj.descripcion for obj in asignatura" required>
+                        <option value="">Selección Asignatura</option>
+                    </select>
+                </td>
+                <td ng-show="edit[$index]===$index">{{i.PRU_BIEN}}</td>
+                <td ng-show="edit[$index]===$index">{{i.PRU_MAL}}</td>
+                <td ng-show="edit[$index]===$index">
+                    <input type="checkbox" class="checkbox-inline" ng-model="i.PRU_ESTADO" ng-checked="i.PRU_ESTADO===1?true:false">
+                </td>
 
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
+
+                <th scope="row" ng-show="edit[$index]!=$index">{{i.ID}}</th>
+                <td ng-show="edit[$index]!=$index">{{i.PRU_DESCRIPCION}}</td>
+                <td ng-show="edit[$index]!=$index">{{asignatura[i.PRU_ASIGNATURA-1].descripcion}}</td>
+                <td ng-show="edit[$index]!=$index">{{i.PRU_BIEN}}</td>
+                <td ng-show="edit[$index]!=$index">{{i.PRU_MAL}}</td>
+                <td ng-show="edit[$index]!=$index">{{i.PRU_ESTADO===1?'Activado':'Desactivado'}}</td>
+                <td>
+                <button type="button" class="btn btn-success btn-xs" ng-click="edit[$index]=$index" ng-show="edit[$index]!=$index">Editar</button>
+                <button type="button" class="btn btn-success btn-xs" ng-show="edit[$index]===$index" ng-click="actualizarPrueba(i,$index)">Guardar</button>
+                <button type="button" class="btn btn-success btn-xs" ng-click="edit[$index]=-1" ng-show="edit[$index]===$index">Cancelar</button>
+                </td>
             </tr>
             </tbody>
         </table>

@@ -1,21 +1,29 @@
-
-<button type="button" class="btn btn-primary slideInUp animated" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+<div id="myModal" class="modal fade">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form>
-                <div class="form-group">
-                    <label for="descripcion-respuesta" class="control-label">Escriba la respuesta:</label>
-                    <input type="text" class="form-control" ng-model="f.strRespuesta">
-                </div>
-                <div class="form-group">
-                    <label>Es Correcta</label>
-                    <input type="checkbox" class="form-control" ng-model="f.bolEstado">
-                </div>
-                <div class="form-group">
-                    <button type="submit" ng-disabled="f.$invalid">Enviar</button>
-                </div>
-            </form>
+            <div class="modal-header gradiente" >
+                <h4 class="modal-title">Agregue la Respuesta</h4>
+            </div>
+            <div class="modal-body">
+                <form  name="f"  class="form-horizontal" style="padding: 10px;">
+
+                    <div class="form-group">
+                        <label>Respuesta:</label>
+                        <textarea ng-model="g.RES_DESCRIPCION" class="form-control" style="height: 150px;" required>
+
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Estado Respuesta</label>
+                        <input type="checkbox" class="form-control" ng-model="g.ESCORRECTA" ng-init="g.ESCORRECTA=true">
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" ng-disabled="f.$invalid" ng-click="guardarRespuesta(g)">Guardar</button>
+            </div>
         </div>
     </div>
 </div>

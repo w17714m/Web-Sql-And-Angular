@@ -114,6 +114,30 @@ myApp.config(function ($httpProvider,$routeProvider, $locationProvider,cfpLoadin
                 }
             }
         })
+        .when('/repAsignatura', {
+            templateUrl: 'template/testAsignatura.html',
+            controller: 'testAsigCtrl',
+            resolve: {
+                delay: function($q, $timeout) {
+                    var delay = $q.defer();
+                    $timeout(delay.resolve, 1000);
+                    return delay.promise;
+                }
+            }
+        })
+        .when('/repIdioma', {
+            templateUrl: 'template/testIdiomas.html',
+            controller: 'testIdiomaCtrl',
+            resolve: {
+                delay: function($q, $timeout) {
+                    var delay = $q.defer();
+                    $timeout(delay.resolve, 1000);
+                    return delay.promise;
+                }
+            }
+        })
+
+
         .otherwise({
         redirectTo: '/'
     });

@@ -1,58 +1,83 @@
 <div class="panel panel-info bounceIn animated">
     <div class="panel-heading">
-        <h4 id="a">Edite su prueba</h4>
+        <h4 id="a">Edite Sus Preguntas</h4>
     </div>
-    <div class="panel-body">
+    <div class="panel-body" style="overflow: scroll;overflow: auto;">
         <table class="table table-striped table-hover">
             <thead>
             <tr>
                 <th>#</th>
-                <th>Pregunta</th>
+                <th>Nombre Prueba</th>
+                <th>Asignatura</th>
                 <th>Bien</th>
                 <th>Mal</th>
-                <th>Total</th>
                 <th>Estado</th>
                 <th>Acciones</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody ng-repeat="i in preguntas">
             <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
+                <!-- MODO EDICION -->
+                <th scope="row" ng-show="edit[$index]===$index">
+                    <button class="btn btn-primary" type="button" ng-click="edit2[$index]=((edit2[$index]===$index)?-1:$index)" >
+                        <span class="badge">{{i.ID}}</span>
+                    </button>
+                </th>
+                <td ng-show="edit[$index]===$index">
+                    <input type="text" class="form-control" ng-model="i.PRE_DESCRIPCION" required>
+                </td>
+                <td ng-show="edit[$index]===$index">
+                    <select select ng-model="i.PRE_PRUEBA" class="form-control"   ng-options="obj.ID as obj.PRU_DESCRIPCION for obj in pruebas" required>
+                        <option value="">Selección Asignatura</option>
+                    </select>
+                </td>
+                <td ng-show="edit[$index]===$index">{{i.PRE_BIEN}}</td>
+                <td ng-show="edit[$index]===$index">{{i.PRE_BIEN}}</td>
+                <td ng-show="edit[$index]===$index">
+                    <input type="checkbox" class="checkbox-inline" ng-model="i.PRE_ESTADO" ng-checked="i.PRE_ESTADO===1?true:false">
+                </td>
+
+
+
+
+                <!-- VISUALIZACION NORMAL -->
+                <th scope="row" ng-show="edit[$index]!=$index">
+                    <button class="btn btn-primary" type="button" ng-click="edit2[$index]=((edit2[$index]===$index)?-1:$index);selectRespuesta(i.ID,$index)">
+                        <span class="badge">{{i.ID}}</span>
+                    </button>
+                </th>
+                <td ng-show="edit[$index]!=$index">{{i.PRE_DESCRIPCION}}</td>
+                <td ng-show="edit[$index]!=$index">{{pruebas[i.PRE_PRUEBA-1].PRU_DESCRIPCION}}</td>
+                <td ng-show="edit[$index]!=$index">{{i.PRE_BIEN}}</td>
+                <td ng-show="edit[$index]!=$index">{{i.PRE_BIEN}}</td>
+                <td ng-show="edit[$index]!=$index">{{i.PRE_ESTADO===1?'Activado':'Desactivado'}}</td>
                 <td>
-                    Agregar Respuesta<br/>
-                    Editar Pregunta<br/>
-                    Inactivar<br/>
+                    <button type="button" class="btn btn-success btn-xs" ng-click="edit[$index]=$index" ng-show="edit[$index]!=$index">Editar</button>
+                    <button type="button" class="btn btn-success btn-xs" ng-show="edit[$index]===$index" ng-click="actualizarPregunta(i,$index)">Guardar</button>
+                    <button type="button" class="btn btn-success btn-xs" ng-click="edit[$index]=-1" ng-show="edit[$index]===$index">Cancelar</button>
+                    <button type="button" class="btn btn-success btn-xs" ng-click="agregarPreguntas(i.ID)" ng-show="edit[$index]===$index">Agregar Respuestas</button>
                 </td>
             </tr>
             <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>
-                    Agregar Respuesta<br/>
-                    Editar Pregunta<br/>
-                    Inactivar<br/>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>
-                    Agregar Respuesta<br/>
-                    Editar Pregunta<br/>
-                    Inactivar<br/>
+                <td ng-show="edit2[$index]===$index" style="background: #cbcbcb;opacity: 0.6;filter: alpha(opacity=60);padding: 14px;" colspan="7">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Descripción</th>
+                            <th>Correcta</th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="j in Respuesta[$index]">
+                        <tr>
+                            <td>{{j.ID}}</td>
+                            <td>{{j.RES_DESCRIPCION}}</td>
+                            <td>{{j.ESCORRECTA}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
                 </td>
             </tr>
             </tbody>
@@ -61,3 +86,5 @@
 
 </div>
 
+
+<div ng-include="'template/modalAddQuestion.html'"></div>

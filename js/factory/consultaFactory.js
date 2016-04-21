@@ -1,4 +1,4 @@
-myApp.factory('consultaFactory', function(audioConfig,$http) {
+myApp.factory('consultaFactory', function(audioConfig,$http,$rootScope) {
     return {
         getimage: function(image)
         {
@@ -88,6 +88,15 @@ myApp.factory('consultaFactory', function(audioConfig,$http) {
                 type: 'char'
             });
 
+        },
+        showModal: function(a)
+        {
+            $rootScope.mensaje = a;
+            $('#mensajeModal').modal({backdrop: 'static', keyboard: false});
+        },
+        hideModal: function(){
+            $rootScope.mensaje = '';
+            $('#mensajeModal').modal('hide');
         }
     };
 });

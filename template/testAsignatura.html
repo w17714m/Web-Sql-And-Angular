@@ -1,0 +1,40 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Prueba Asignatura
+    </div>
+    <div class="panel-body">
+        <div ng-switch="opt">
+            <div ng-switch-when="1">
+                <div class="jumbotron">
+            <form name="t" novalidate>
+                <p>Inicio de la prueba</p>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-md" ng-disabled="t.$invalid" ng-click="siguiente" >Enviar</button>
+                </div>
+            </form>
+                </div>
+            </div>
+            <div ng-switch-default>
+                <form name="f" class="form-inline" novalidate>
+                    <div class="form-group">
+                        <select select ng-model="i.PRU_ASIGNATURA" class="form-control"   ng-change="selectAsignaturaAcademica(i.PRU_ASIGNATURA)"  ng-options="obj.ID as obj.ASIG_NOMBRE for obj in asignatura" required>
+                            <option value="">Selección Asignatura</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select select ng-model="i.PRE_PRUEBA" class="form-control"  ng-options="obj.ID as obj.PRU_DESCRIPCION for obj in pruebas" required>
+                            <option value="">Selección Prueba</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success" ng-disabled="f.$invalid" ng-click="iniciarPrueba(i.PRE_PRUEBA)">Iniciar Prueba</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div ng-include="'template/modalAddQuestion.html'"></div>

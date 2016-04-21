@@ -1,29 +1,29 @@
 <div class="panel panel-info bounceIn animated">
     <div class="panel-heading">
-        <h4 id="a">Inserte Su Asignatura</h4>
+        <h4 id="a">Inserte Su Pregunta</h4>
     </div>
     <div class="panel-body">
-        <form name="f" class="form-inline" novalidate>
+        <form name="f" class="form-horizontal" novalidate style="padding: 10px;">
             <div class="form-group">
-                <label>Descripción Pregunta</label>
-                <input type="text" class="form-control" ng-model="f.strPregunta" required>
-            </div>
+                <label>Pregunta</label>
+                <textarea type="text" class="form-control" ng-model="p.PRE_DESCRIPCION" style="height: 150px;" required>
 
+                </textarea>
+            </div>
             <div class="form-group">
                 <label>Prueba</label>
-                <select ng-model="f.numPrueba"  class="form-control" required>
-                    <option value="">Seleccion prueba</option>
+                <select select ng-model="p.PRE_PRUEBA" class="form-control"  ng-options="obj.ID as obj.PRU_DESCRIPCION for obj in pruebas" required>
+                    <option value="">Selección Prueba</option>
                 </select>
             </div>
             <div class="form-group">
                 <label>Estado</label>
-                <input type="checkbox" class="form-control" ng-model="f.bolEstado">
+                <input type="checkbox" class="form-control" ng-model="p.PRE_ESTADO">
             </div>
             <div class="form-group">
-                <button type="submit" ng-disabled="f.$invalid">Enviar</button>
+                <button type="submit" class="btn btn-success" ng-disabled="f.$invalid" ng-click="insertarPregunta(p)">Enviar</button>
             </div>
         </form>
     </div>
 
 </div>
-

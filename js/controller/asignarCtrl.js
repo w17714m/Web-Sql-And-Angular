@@ -18,10 +18,12 @@ myApp.controller('asignarCtrl', ['$scope','consultaFactory','cfpLoadingBar', '$r
             {
                 cfpLoadingBar.complete();
                 $scope.imagen = data;
+                consultaFactory.showModal('Se completo el proceso satisfactoriamente.');
             },
             function(error)
             {
                 cfpLoadingBar.complete();
+                consultaFactory.showModal('Se generó un error vuelvalo a intentar');
                 $scope.imagen = error;
             }
         );
@@ -31,6 +33,7 @@ myApp.controller('asignarCtrl', ['$scope','consultaFactory','cfpLoadingBar', '$r
             cfpLoadingBar.start();
             dbControl.insertAsignatura(a);
             cfpLoadingBar.complete();
+            consultaFactory.showModal('Se completo el proceso satisfactoriamente.');
         };
 
 
@@ -41,11 +44,12 @@ myApp.controller('asignarCtrl', ['$scope','consultaFactory','cfpLoadingBar', '$r
                     cfpLoadingBar.complete();
                     console.log(data);
                     $scope.asignatura = data;
+                    //consultaFactory.showModal('Se completo el proceso satisfactoriamente.');
                 },
                 function (error) {
                     cfpLoadingBar.complete();
                     console.log('ERRRORRRORORORO', error);
-
+                    //consultaFactory.showModal('Se generó un error vuelvalo  intentar.');
                 }
             );
         };
@@ -62,6 +66,7 @@ myApp.controller('asignarCtrl', ['$scope','consultaFactory','cfpLoadingBar', '$r
             console.log(a);
             console.log('resultado',dbControl.updateAsignatura(a));
             $scope.edit[b] = -1;
+            consultaFactory.showModal('Se completo el proceso satisfactoriamente.');
             $scope.asignaturas();
         };
 
