@@ -64,3 +64,15 @@ html {
     background-image: -webkit-gradient(linear,left top,left bottom,from(#d9edf7),to(#c4e3f3));
     background-image: linear-gradient(to bottom,#d9edf7 0,#c4e3f3 100%);
 }
+
+
+.btn span.glyphicon {
+    opacity: 0;
+}
+.btn.active span.glyphicon {
+    opacity: 1;
+}
+
+input[type="radio"][value="text"]:checked{
+    visibility:hidden;
+}

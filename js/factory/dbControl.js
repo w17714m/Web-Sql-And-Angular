@@ -4,7 +4,7 @@ myApp.factory('dbControl', function($webSql,$q) {
     return {
         getInstanceDB: function()
         {
-            db = $webSql.openDatabase('learn_1.0.7', '1.0', 'db for learn', 4 * 1024 * 1024);
+            db = $webSql.openDatabase('learn_1.0.11', '1.0', 'db for learn', 4 * 1024 * 1024);
 
             db.createTable('TBL_ASIGNATURA', {
                 "ID":{
@@ -119,7 +119,6 @@ myApp.factory('dbControl', function($webSql,$q) {
                 "ASIG_TIPO": a.numTipoAsig,
                 "ASIG_ESTADO": a.bolStado
             }).then(function(results) {
-
                     return results;
             });
         },
@@ -305,6 +304,33 @@ myApp.factory('dbControl', function($webSql,$q) {
                 return results;
             });
         },
+        selectPreguntasFiltro: function(a)
+        {
+            var defered = $q.defer();
+            var promise = defered.promise;
+            var t = [];
+
+            /*var sql = "SELECT P.ID AS IDPREGUNTA,R.ID AS IDRESPUESTA,* FROM TBL_PREGUNTAS  P INNER JOIN " +
+                " TBL_RESPUESTA R ON R.RES_PREGUNTA = P.ID WHERE P.PRE_PRUEBA = " + a;*/
+            var sql = "SELECT * FROM TBL_PREGUNTAS WHERE PRE_PRUEBA = " + a
+
+            db.sql(sql).then(function(results) {
+                var tp = results.rows;
+                for(i=0; i < results.rows.length; i++){
+                    t.push(results.rows[i]);
+                }
+
+                if(results.rows.length>0)
+                {
+                    defered.resolve(t);
+                }
+                else
+                {
+                    defered.reject('La consulta no tiene registros');
+                }
+            })
+            return promise;
+        },
         selectPreguntas: function()
         {
             var defered = $q.defer();
@@ -353,7 +379,7 @@ myApp.factory('dbControl', function($webSql,$q) {
             db.select("TBL_RESPUESTA", {
                 "RES_PREGUNTA":a
             }).then(function(results) {
-                console.log('Ingreso');
+
                 for(i=0; i < results.rows.length; i++){
                     t.push(results.rows[i]);
                 }
@@ -369,6 +395,150 @@ myApp.factory('dbControl', function($webSql,$q) {
 
             })
             return promise
+        },
+        selectBienPrueba:function(a)
+        {
+            var defered = $q.defer();
+            var promise = defered.promise;
+            var t = [];
+            db.select("TBL_PRUEBA", {
+                "ID":a
+            }).then(function(results) {
+
+                var tp = results.rows;
+
+                for(i=0; i < results.rows.length; i++){
+                    t.push(results.rows[i].PRU_BIEN);
+                }
+
+                if(results.rows.length>0)
+                {
+
+
+                    defered.resolve(t);
+                }
+                else
+                {
+                    defered.reject('La consulta no tiene registros');
+                }
+
+            })
+            return promise;
+        },
+        selectMalPrueba:function(a)
+        {
+            var defered = $q.defer();
+            var promise = defered.promise;
+            var t = [];
+            db.select("TBL_PRUEBA", {
+                "ID":a
+            }).then(function(results) {
+
+                for(i=0; i < results.rows.length; i++){
+                    t.push(results.rows[i].PRU_MAL);
+                }
+
+                if(results.rows.length>0)
+                {
+
+
+                    defered.resolve(t);
+                }
+                else
+                {
+                    defered.reject('La consulta no tiene registros');
+                }
+
+            })
+            return promise;
+        },
+        selectBienPregunta:function(a)
+        {
+            var defered = $q.defer();
+            var promise = defered.promise;
+            var t = [];
+
+            db.select("TBL_PREGUNTAS", {
+                "ID":a
+            }).then(function(results) {
+                var tp = results.rows;
+                for(i=0; i < results.rows.length; i++){
+                    t.push(results.rows[i].PRE_BIEN);
+                }
+                if(results.rows.length>0)
+                {
+                    defered.resolve(t);
+                }
+                else
+                {
+                    defered.reject('La consulta no tiene registros');
+                }
+
+            })
+            return promise;
+        },
+        selectMalPregunta:function(a)
+        {
+            var defered = $q.defer();
+            var promise = defered.promise;
+            var t = [];
+            db.select("TBL_PREGUNTAS", {
+                "ID":a
+            }).then(function(results) {
+
+                for(i=0; i < results.rows.length; i++){
+                    t.push(results.rows[i].PRE_MAL);
+                }
+                if(results.rows.length>0)
+                {
+                    defered.resolve(t);
+                }
+                else
+                {
+                    defered.reject('La consulta no tiene registros');
+                }
+            })
+            return promise;
+        },
+        updatePruebaNota: function(a,b,c){
+            if(a===true)
+            {
+                return db.update("TBL_PRUEBA", {"PRU_BIEN":c}, {
+                    "ID":  b
+                });
+            }else
+            {
+                return db.update("TBL_PRUEBA", {"PRU_MAL":c}, {
+                    "ID":  b
+                });
+            }
+
+        },
+        updatePreguntaNota: function(a,b,c){
+            if(a===true)
+            {
+                return db.update("TBL_PREGUNTAS", {"PRE_BIEN":c}, {
+                    "ID":  b
+                });
+            }else
+            {
+                return db.update("TBL_PREGUNTAS", {"PRE_MAL":c}, {
+                    "ID":  b
+                });
+            }
+
+        },
+        updateAsignaturaNota: function(a){
+            var sql = "UPDATE TBL_ASIGNATURA " +
+            " SET ASIG_NOTA = (SELECT ROUND((SUM(PRU_BIEN)*1.0)/((SUM(PRU_BIEN) + SUM(PRU_MAL)))*100.0,2) AS RESULT FROM TBL_PRUEBA WHERE PRU_ASIGNATURA = " + a +")"
+            " WHERE ID = " + a + ";";
+
+            return db.sql(sql);
+        },
+        updateTotalPrueba: function()
+        {
+            db.sql("UPDATE TBL_PREGUNTAS SET PRE_TOTAL =  PRE_BIEN +  PRE_MAL;");
+            return db.sql("UPDATE TBL_PRUEBA SET PRU_TOTAL =  PRU_BIEN +  PRU_MAL;");
         }
         };
 

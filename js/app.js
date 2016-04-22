@@ -9,7 +9,8 @@
             'cfp.loadingBar',
             'ngAnimate',
             'angular-websql',
-            'chart.js'
+            'chart.js',
+            'ui.checkbox'
         ]
     );
 
