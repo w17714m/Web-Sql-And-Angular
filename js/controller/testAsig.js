@@ -29,6 +29,7 @@ myApp.controller('testAsigCtrl',function($scope,cfpLoadingBar,dbControl,consulta
                 function(data)
                 {
                     $scope.pruebas=data;
+                    console.log('selectAsignaturaAcademica',data);
                 },function(error)
                 {
                     $scope.pruebas = {};
@@ -41,6 +42,34 @@ myApp.controller('testAsigCtrl',function($scope,cfpLoadingBar,dbControl,consulta
         }
 
     };
+
+
+    $scope.selectAsignaturaAcademicaRefuerzo = function(a)
+    {
+
+        try{
+            dbControl.selectPruebaRefuerzo().then(
+                function(data)
+                {
+                    console.log('selectPruebaRefuerzo',data);
+                    $scope.refuerzo = data;
+
+                },function(error)
+                {
+                    console.log('selectPruebaRefuerzo',error);
+                    //$scope.pruebas = {};
+                    //consultaFactory.showModal('No hay pruebas para la selección');
+                });
+
+        }catch (e)
+        {
+            consultaFactory.showModal('No hay pruebas para la selección');
+        }
+
+    };
+
+    $scope.selectAsignaturaAcademicaRefuerzo();
+
     $scope.selectRespuesta = function(a)
     {
         dbControl.selectRespuesta(a).then(
@@ -76,10 +105,8 @@ myApp.controller('testAsigCtrl',function($scope,cfpLoadingBar,dbControl,consulta
     };
     $scope.enviarRespuesta = function(x)
     {
-
-
         x.IDPRUEBA = $scope.preguntaActual.PRE_PRUEBA;
-
+        x.PRE_DESCRIPCION = $scope.preguntaActual.PRE_DESCRIPCION;
         x.IDASIGNATURA = $scope.preguntaActual.PRU_ASIGNATURA;
         if(x.ESCORRECTA===1)
         {
@@ -95,6 +122,7 @@ myApp.controller('testAsigCtrl',function($scope,cfpLoadingBar,dbControl,consulta
 
        $scope.pendientesEnviar.push(x);
         $timeout(function(){
+            console.log('$scope.asignaturaElegida',$scope.asignaturaElegida);
             actualizarAsignatura($scope.asignaturaElegida);
             actualizarTotalPrueba();
             $scope.t.resp = {};
@@ -103,37 +131,41 @@ myApp.controller('testAsigCtrl',function($scope,cfpLoadingBar,dbControl,consulta
 
 
     }
-    $scope.iniciarPrueba = function(x)
+    $scope.iniciarPrueba = function(x,a)
     {
         $scope.asignaturaElegida = x;
-        dbControl.selectPreguntasFiltro(x).then(
-            function(data)
-            {
-                $scope.preguntasjs = data;
 
-                $scope.nextPreguntas();
-            /*
-                $scope.preguntasjs = JSLINQ($scope.preguntasRespuestas).
-                    Distinct(function (item) {
-                        console.log('recorrido',item);
-                        return item.PRE_PRUEBA;
-                    });
-                $scope.respuestasjs = JSLINQ($scope.preguntasRespuestas).
-                    Select(function (item) {
-                        var resultado = {respuesta:item.RES_DESCRIPCION}
-                        return resultado;
-                    }).Where(function(item){ return item.ID === 1; })
-                ;
+        if(a===false){
+            dbControl.selectPreguntasRefuerzo(x).then(
+                function(data)
+                {
+                    $scope.preguntasjs = data;
+                    $scope.nextPreguntas();
+                },
+                function(error)
+                {
 
-                console.log('preguntas',$scope.preguntasjs);
-                console.log('respuestas',$scope.respuestasjs);
-            */
-            },
-            function(error)
-            {
+                });
+        }else{
+            dbControl.selectPreguntasFiltro(x).then(
+                function(data)
+                {
+                    $scope.preguntasjs = data;
+                    $scope.nextPreguntas();
+                },
+                function(error)
+                {
 
-            }
-        );
+                }
+            );
+        }
+
+
+
+
+
+
+
 
         $scope.opt=1;
     }
@@ -252,6 +284,7 @@ myApp.controller('testAsigCtrl',function($scope,cfpLoadingBar,dbControl,consulta
     };
     var actualizarTotalPrueba = function()
     {
+
         dbControl.updateTotalPrueba().then(
             function(data){
                 console.log("OK",data);
@@ -278,5 +311,12 @@ myApp.controller('testAsigCtrl',function($scope,cfpLoadingBar,dbControl,consulta
         });
     }
 
+
+    $scope.iniciar = function()
+    {
+        $scope.opt=-1;
+        $scope.indicator = 0;
+        $scope.pendientesEnviar = [];
+    }
 
 });

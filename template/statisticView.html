@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body">
+
+                    <div ng-repeat="i in resAsigNota" class="{{($index%3===0)?'row':''}}">
+                        <div class="col-md-4">
+                        <div style="text-align: center" class="h3">{{i.ASIG_NOMBRE}}</div>
+                        <canvas id="pie{{$index}}" class="chart chart-pie"
+                                chart-data="[i.BIEN,i.MAL]" chart-labels="series">
+                        </canvas>
+                        </div>RRRR
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="panel">
+                <div class="panel-heading">
+               </div>
+                <div class="panel-body">
+
+                    <canvas id="bar" class="chart chart-bar"
+                            chart-data="dataAsig" chart-labels="asignaturasLabels" chart-series="['Bien','Mal','Nota']">
+                    </canvas>
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

@@ -11,12 +11,14 @@
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css"/>
     <link rel='stylesheet' href='bower_components/angular-loading-bar/build/loading-bar.min.css' type='text/css' media='all' />
     <link rel='stylesheet' href='bower_components/angular-chart.js/dist/angular-chart.css' type='text/css' media='all' />
-    <link rel='stylesheet' href='bower_components/' type='text/css' media='all' />
-
+    <link rel='stylesheet' href='node_modules/angular-flippy/dist/css/angular-flippy.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='node_modules/angular-flippy/dist/css/angular-flippy-fancy.css' type='text/css' media='all' />
+    <link  rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css"/>
 
 
 
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/Chart.js/Chart.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/Chart.js/Chart.js"></script>
     <script src="node_modules/angular/angular.js"></script>
@@ -26,6 +28,8 @@
     <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
     <script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
     <script src="bower_components/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js"></script>
+    <script src="node_modules/angular-flippy/dist/js/angular-flippy.js"></script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
 
     <script src="js/app.js"></script>
     <script src="js/controller/mainCtrl.js"></script>
@@ -34,6 +38,7 @@
     <script src="js/controller/testCtrl.js"></script>
     <script src="js/controller/testAsig.js"></script>
     <script src="js/controller/testIdioma.js"></script>
+    <script src="js/controller/statisticCtrl.js"></script>
     <script src="js/factory/dbControl.js"></script>
     <script src="js/factory/consultaFactory.js"></script>
 
@@ -44,6 +49,9 @@
     <script src="lib/backStretch/backStretch.js"></script>
     <script src="lib/jslinq/jslinq.js"></script>
     <script src="node_modules/json-query/lib/jsonSql.js"></script>
+
+
+
 </head>
 <body ng-app="APP" id="loading-bar-container">
 <nav class="navbar navbar-inverse">
@@ -94,6 +102,15 @@
                         <li><a href="#/repIdioma">Idiomas</a></li>
                     </ul>
                 </li>
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Estadísticas<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/statistic/1">Estadísticas por Asignatura</a></li>
+                        <li><a href="#/statistic/2">Estadísticas por Prueba</a></li>
+                        <li><a href="#/repIdioma/3">Estadísticas por Pregunta</a></li>
+                    </ul>
+                </li>
+
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

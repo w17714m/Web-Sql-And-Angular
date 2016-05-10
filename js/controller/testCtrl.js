@@ -4,7 +4,10 @@ myApp.controller('testCtrl', ['$scope','consultaFactory','cfpLoadingBar', '$root
     $scope.edit = [];
     $rootScope.tipoAprendizaje = tipoAprendizaje;
     dbControl.getInstanceDB();
-    var asignaturas=function() {
+
+
+
+        var asignaturas=function() {
             cfpLoadingBar.start();
             return dbControl.selectAsignaturaList().then(
                 function (data) {

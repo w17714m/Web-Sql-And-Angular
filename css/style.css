@@ -23,7 +23,7 @@ div.overlay > div {
     height:         100%;
     background:     #f5f5f5;
     opacity: 0.6;
-    filter: alpha(opacity=40); /* For IE8 and earlier */
+    filter: alpha(opacity=40);
     text-align:     center;
     vertical-align: middle;
 }
@@ -46,7 +46,7 @@ html {
 #table-information tbody:before {
     line-height: 30px;
     content:"-";
-    color:white; /* to hide text */
+    color:white;
     display:block;
 }
 #table-information td {
@@ -65,14 +65,14 @@ html {
     background-image: linear-gradient(to bottom,#d9edf7 0,#c4e3f3 100%);
 }
 
-
+/*
 .btn span.glyphicon {
     opacity: 0;
 }
 .btn.active span.glyphicon {
     opacity: 1;
 }
-
+*/
 input[type="radio"][value="text"]:checked{
     visibility:hidden;
 }

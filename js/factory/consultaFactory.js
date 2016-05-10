@@ -1,18 +1,55 @@
-myApp.factory('consultaFactory', function(audioConfig,$http,$rootScope) {
+myApp.factory('consultaFactory', function(audioConfig,$http,$rootScope,$timeout) {
     return {
         getimage: function(image)
         {
             return $http.get('http://api.riffsy.com/v1/search?tag=' + image + '&limit=1').then(function(data)
             {
+                console.log('ejecuto correctamente');
                return data.data.results[0].media[0].gif.url;
             },function(error){
+                console.log('ejecuto con error');
                 return 'img/lupa.jpg';
             })
         },
         getSound:function(text)
         {
-            var audio = new Audio('https://api.voicerss.org/?key=7ca26786842a48849174e28e6ff1ab56&src=' + text + '&hl='+audioConfig.idioma+'&r='+audioConfig.velocidad+'&c=MP3');
-            return audio;
+
+            window.speechSynthesis.onvoiceschanged = function() {
+          //      console.log('window.speechSynthesis.getVoices()', window.speechSynthesis.getVoices());
+            };
+
+            $timeout(function()
+            {
+            //    console.log('window.speechSynthesis.getVoices()',window.speechSynthesis.getVoices());
+                var voices = speechSynthesis.getVoices();
+                console.log(voices);
+                var msg = new SpeechSynthesisUtterance(text);
+                msg.voice = voices[2];
+                msg.voiceURI = 'native';
+                msg.volume = 1; // 0 to 1
+                msg.rate = 0.5; // 0.1 to 10
+                msg.pitch = 1; //0 to 2
+                msg.text = text;
+                msg.lang = 'en-US';
+                speechSynthesis.speak(msg);
+            },1500);
+
+            /*window.speechSynthesis.onvoiceschanged = function() {
+                console.log('window.speechSynthesis.getVoices()',window.speechSynthesis.getVoices());
+                var voices = speechSynthesis.getVoices();
+                console.log(voices);
+                    var msg = new SpeechSynthesisUtterance(text);
+                    msg.voice = voices[2];
+                    msg.voiceURI = 'native';
+                    msg.volume = 1; // 0 to 1
+                    msg.rate = 0.5; // 0.1 to 10
+                    msg.pitch = 1; //0 to 2
+                    msg.text = text;
+                    msg.lang = 'en-US';
+                    speechSynthesis.speak(msg);
+            };*/
+            //var audio = new Audio('https://api.voicerss.org/?key=7ca26786842a48849174e28e6ff1ab56&src=' + text + '&hl='+audioConfig.idioma+'&r='+audioConfig.velocidad+'&c=MP3');
+            //return audio;
         },
         animateLetter: function(a)
         {

@@ -10,7 +10,9 @@
             'ngAnimate',
             'angular-websql',
             'chart.js',
-            'ui.checkbox'
+            'ui.checkbox',
+            'angular-flippy',
+            'chart.js'
         ]
     );
 
@@ -138,6 +140,17 @@ myApp.config(function ($httpProvider,$routeProvider, $locationProvider,cfpLoadin
             }
         })
 
+        .when('/statistic/:id', {
+            templateUrl: 'template/statisticView.html',
+            controller: 'statisticCtrl',
+            resolve: {
+                delay: function($q, $timeout) {
+                    var delay = $q.defer();
+                    $timeout(delay.resolve, 1000);
+                    return delay.promise;
+                }
+            }
+        })
 
         .otherwise({
         redirectTo: '/'
